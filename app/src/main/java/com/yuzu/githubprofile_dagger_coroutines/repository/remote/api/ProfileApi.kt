@@ -12,12 +12,6 @@ import retrofit2.http.*
 interface ProfileApi {
 
     /**
-     * User List
-     * */
-    @GET(value = "users")
-    suspend fun userList(@Query("since") since: Int): Response<List<UserData>>
-
-    /**
      * Popular User List
      * curl https://api.github.com/search/users\?q\=followers:\>1000\&page\=1\&per_page\=10\&sort\=followers\&order\=desc
      * */

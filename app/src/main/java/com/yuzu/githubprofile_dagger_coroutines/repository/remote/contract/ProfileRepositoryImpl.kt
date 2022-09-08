@@ -10,8 +10,8 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi
  */
 
 class ProfileRepositoryImpl(private val api: ProfileApi): ProfileRepository {
-    override suspend fun userList(since: Int): Response<List<UserData>> {
-        return api.userList(since)
+    override suspend fun popularUserList(q: String, perPage: Int, sort: String, order: String): Response<List<UserData>> {
+        return api.popularUserList(q, perPage, sort, order)
     }
 
     override suspend fun userDetail(username: String): Response<ProfileData> {
