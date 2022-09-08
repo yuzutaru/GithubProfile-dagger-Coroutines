@@ -38,7 +38,6 @@ class ProfileRepositoryTest {
     private val runtimeException = RuntimeException("Something went wrong", null)
 
     private val errorProfile = Response<ProfileData>(Status.EMPTY, null, runtimeException)
-    private val errorUser = Response<List<UserData>>(Status.EMPTY, null, runtimeException)
 
 
     @Before
@@ -51,8 +50,7 @@ class ProfileRepositoryTest {
             coEvery { api.userDetail("yuzu") } returns profileDataResponse
             coEvery { api.userDetail("Naruto") } returns errorProfile
 
-            coEvery { api.userList(0) } returns userListResponse
-            coEvery { api.userList(1) } returns errorUser
+            coEvery { api.popularUserList("followers:>1000", 10, "followers", "desc") } returns userListResponse
         }
 
         repository = ProfileRepositoryImpl(api)
@@ -73,12 +71,6 @@ class ProfileRepositoryTest {
     @Test
     fun `test userList when valid since is requested, then userList is returned`() =
         runBlocking {
-            assertEquals(userListResponse, repository.userList(0))
-        }
-
-    @Test
-    fun `test userList when invalid since is requested, then error is returned`() =
-        runBlocking {
-            assertEquals(errorUser, repository.userList(1))
+            assertEquals(userListResponse, repository.popularUserList("followers:>1000", 10, "followers", "desc"))
         }
 }
