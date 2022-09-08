@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/bg_edit_text_white.xml" value="0.1915" />
+        <entry key="app/src/main/res/drawable-v24/bg_white_1000.xml" value="0.1915" />
+        <entry key="app/src/main/res/drawable-v24/bg_white_border_primary.xml" value="0.1915" />
+        <entry key="app/src/main/res/drawable/ic_search_left.xml" value="0.1915" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35208333333333336" />
+        <entry key="app/src/main/res/layout/fragment_main_menu.xml" value="0.33645833333333336" />
       </map>
     </option>
   </component>
