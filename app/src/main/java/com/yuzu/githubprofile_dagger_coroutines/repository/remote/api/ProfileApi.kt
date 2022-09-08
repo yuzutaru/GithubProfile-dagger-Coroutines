@@ -18,6 +18,16 @@ interface ProfileApi {
     suspend fun userList(@Query("since") since: Int): Response<List<UserData>>
 
     /**
+     * Popular User List
+     * curl https://api.github.com/search/users\?q\=followers:\>1000\&page\=1\&per_page\=10\&sort\=followers\&order\=desc
+     * */
+    @GET(value = "users")
+    suspend fun popularUserList(@Query("q") q: String,
+                                @Query("per_page") perPage: Int,
+                                @Query("sort") sort: String,
+                                @Query("order") order: String): Response<List<UserData>>
+
+    /**
      * User Detail
      * */
     @GET(value = "users/{username}")
