@@ -2,6 +2,7 @@ package com.yuzu.githubprofile_dagger_coroutines.injection
 
 import android.annotation.SuppressLint
 import android.app.Application
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.ResponseHandler
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.contract.ProfileRepositoryImpl
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.contract.ProfileRepository
@@ -96,7 +97,13 @@ open class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    open fun profileRepository(api: ProfileApi): ProfileRepository {
-        return ProfileRepositoryImpl(api)
+    open fun profileRepository(api: ProfileApi, handler: ResponseHandler): ProfileRepository {
+        return ProfileRepositoryImpl(api, handler)
+    }
+
+    @Provides
+    @Singleton
+    open fun responseHandler(): ResponseHandler {
+        return ResponseHandler()
     }
 }

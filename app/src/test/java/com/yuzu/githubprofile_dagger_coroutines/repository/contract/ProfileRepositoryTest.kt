@@ -1,9 +1,6 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.contract
 
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.ProfileData
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.Response
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.Status
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.UserData
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.*
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.contract.ProfileRepository
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.contract.ProfileRepositoryImpl
@@ -17,6 +14,7 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.kotlin.whenever
 import retrofit2.HttpException
 
 /**
@@ -25,19 +23,17 @@ import retrofit2.HttpException
 
 @RunWith(JUnit4::class)
 class ProfileRepositoryTest {
-
+    private val responseHandler = ResponseHandler()
     private lateinit var api: ProfileApi
     private lateinit var repository: ProfileRepository
 
     private val profileData = ProfileData(0, "yuzu")
     private val userList = listOf(UserData(0,0))
 
-    private val profileDataResponse = Response(Status.SUCCEED, profileData, null)
-    private val userListResponse = Response(Status.SUCCEED, userList, null)
+    private val profileDataResponse = Resource.success(profileData)
+    private val userListResponse = Resource.success(userList)
 
-    private val runtimeException = RuntimeException("Something went wrong", null)
-
-    private val errorProfile = Response<ProfileData>(Status.EMPTY, null, runtimeException)
+    private val error = Resource.error("Unauthorised", null)
 
 
     @Before
@@ -47,13 +43,12 @@ class ProfileRepositoryTest {
         every { mockException.code() } returns 401
 
         runBlocking {
-            coEvery { api.userDetail("yuzu") } returns profileDataResponse
-            coEvery { api.userDetail("Naruto") } returns errorProfile
-
-            coEvery { api.popularUserList("followers:>1000", 10, "followers", "desc") } returns userListResponse
+            coEvery { api.userDetail("yuzu") } returns profileData
+            coEvery { api.popularUserList("followers:>1000", 10, "followers", "desc") } returns userList
+            coEvery { api.userDetail("Naruto") } throws mockException
         }
 
-        repository = ProfileRepositoryImpl(api)
+        repository = ProfileRepositoryImpl(api, responseHandler)
     }
 
     @Test
@@ -65,7 +60,7 @@ class ProfileRepositoryTest {
     @Test
     fun `test userDetail when invalid username is requested, then error is returned`() =
         runBlocking {
-            assertEquals(errorProfile, repository.userDetail("Naruto"))
+            assertEquals(error, repository.userDetail("Naruto"))
         }
 
     @Test
