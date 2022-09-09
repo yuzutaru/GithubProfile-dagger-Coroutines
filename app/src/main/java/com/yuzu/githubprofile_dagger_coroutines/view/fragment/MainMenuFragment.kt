@@ -1,4 +1,4 @@
-package com.yuzu.githubprofile_dagger_coroutines.view
+package com.yuzu.githubprofile_dagger_coroutines.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yuzu.githubprofile_dagger_coroutines.databinding.FragmentMainMenuBinding
+import com.yuzu.githubprofile_dagger_coroutines.view.adapter.ViewPagerAdapter
 
 class MainMenuFragment: Fragment() {
     private lateinit var binding: FragmentMainMenuBinding

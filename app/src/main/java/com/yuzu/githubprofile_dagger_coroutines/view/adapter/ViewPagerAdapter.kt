@@ -1,9 +1,11 @@
-package com.yuzu.githubprofile_dagger_coroutines.view
+package com.yuzu.githubprofile_dagger_coroutines.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.yuzu.githubprofile_dagger_coroutines.view.fragment.FavoriteFragment
+import com.yuzu.githubprofile_dagger_coroutines.view.fragment.PopularFragment
 
 class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle):
     FragmentStateAdapter(fragmentManager, lifecycle) {

@@ -22,7 +22,7 @@
 
     <fragment
             android:id="@+id/title_screen"
-            android:name="com.yuzu.githubprofile_dagger_coroutines.view.MainMenuFragment"
+            android:name="com.yuzu.githubprofile_dagger_coroutines.view.fragment.MainMenuFragment"
             android:label="fragment_main_menu"
             tools:layout="@layout/fragment_main_menu">
     </fragment>

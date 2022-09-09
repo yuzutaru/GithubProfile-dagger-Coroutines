@@ -1,4 +1,4 @@
-package com.yuzu.githubprofile_dagger_coroutines.view
+package com.yuzu.githubprofile_dagger_coroutines.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
