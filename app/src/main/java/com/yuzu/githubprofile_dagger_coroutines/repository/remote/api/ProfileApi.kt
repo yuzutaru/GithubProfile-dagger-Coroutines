@@ -1,7 +1,6 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.remote.api
 
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.ProfileData
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.Response
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.UserData
 import retrofit2.http.*
 
@@ -19,11 +18,11 @@ interface ProfileApi {
     suspend fun popularUserList(@Query("q") q: String,
                                 @Query("per_page") perPage: Int,
                                 @Query("sort") sort: String,
-                                @Query("order") order: String): Response<List<UserData>>
+                                @Query("order") order: String): List<UserData>
 
     /**
      * User Detail
      * */
     @GET(value = "users/{username}")
-    suspend fun userDetail(@Path(value = "username") username: String): Response<ProfileData>
+    suspend fun userDetail(@Path(value = "username") username: String): ProfileData
 }
