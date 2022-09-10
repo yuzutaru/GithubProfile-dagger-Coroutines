@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Entity
 @Parcelize
-data class ProfileData(
+data class Profile(
     @PrimaryKey
     @SerializedName("id")
     var id: Int,

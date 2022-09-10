@@ -35,6 +35,5 @@ class GithubApp: Application() {
             .appModule(AppModule(this))
             .build()
         component.inject(this)
-        //initTextSize()
     }
 }
