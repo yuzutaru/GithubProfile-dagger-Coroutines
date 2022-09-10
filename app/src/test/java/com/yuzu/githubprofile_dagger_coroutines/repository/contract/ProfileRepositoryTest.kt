@@ -14,7 +14,6 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.kotlin.whenever
 import retrofit2.HttpException
 
 /**
@@ -27,8 +26,8 @@ class ProfileRepositoryTest {
     private lateinit var api: ProfileApi
     private lateinit var repository: ProfileRepository
 
-    private val profileData = ProfileData(0, "yuzu")
-    private val userList = listOf(UserData(0,0))
+    private val profileData = Profile(0, "yuzu")
+    private val userList = listOf(User(0,0))
 
     private val profileDataResponse = Resource.success(profileData)
     private val userListResponse = Resource.success(userList)
@@ -44,7 +43,7 @@ class ProfileRepositoryTest {
 
         runBlocking {
             coEvery { api.userDetail("yuzu") } returns profileData
-            coEvery { api.popularUserList("followers:>1000", 10, "followers", "desc") } returns userList
+            coEvery { api.popularUserList("followers:>1000", 1,10, "followers", "desc") } returns userList
             coEvery { api.userDetail("Naruto") } throws mockException
         }
 
@@ -66,6 +65,6 @@ class ProfileRepositoryTest {
     @Test
     fun `test userList when valid since is requested, then userList is returned`() =
         runBlocking {
-            assertEquals(userListResponse, repository.popularUserList("followers:>1000", 10, "followers", "desc"))
+            assertEquals(userListResponse, repository.popularUserList("followers:>1000", 1,10, "followers", "desc"))
         }
 }

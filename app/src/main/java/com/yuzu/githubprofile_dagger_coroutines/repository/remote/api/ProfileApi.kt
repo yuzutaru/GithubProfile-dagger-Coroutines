@@ -1,7 +1,7 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.remote.api
 
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.ProfileData
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.UserData
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.User
 import retrofit2.http.*
 
 /**
@@ -16,13 +16,14 @@ interface ProfileApi {
      * */
     @GET(value = "users")
     suspend fun popularUserList(@Query("q") q: String,
+                                @Query("page") page: Int,
                                 @Query("per_page") perPage: Int,
                                 @Query("sort") sort: String,
-                                @Query("order") order: String): List<UserData>
+                                @Query("order") order: String): List<User>
 
     /**
      * User Detail
      * */
     @GET(value = "users/{username}")
-    suspend fun userDetail(@Path(value = "username") username: String): ProfileData
+    suspend fun userDetail(@Path(value = "username") username: String): Profile
 }
