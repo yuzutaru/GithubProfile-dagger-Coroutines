@@ -6,8 +6,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.yuzu.githubprofile_dagger_coroutines.view.fragment.FavoriteFragment
 import com.yuzu.githubprofile_dagger_coroutines.view.fragment.PopularFragment
+import com.yuzu.githubprofile_dagger_coroutines.viewmodel.PopularViewModel
 
-class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle):
+class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val popularViewModel: PopularViewModel):
     FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
         return 2
@@ -15,9 +16,9 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle):
 
     override fun createFragment(position: Int): Fragment {
         when (position) {
-            0 -> return PopularFragment()
+            0 -> return PopularFragment(popularViewModel)
             1 -> return FavoriteFragment()
         }
-        return PopularFragment()
+        return PopularFragment(popularViewModel)
     }
 }
