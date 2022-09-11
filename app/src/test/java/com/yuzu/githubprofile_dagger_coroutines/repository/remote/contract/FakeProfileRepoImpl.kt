@@ -4,16 +4,18 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.Resource
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.ResponseHandler
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.User
-import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi
+import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.FakeProfileApi
 
-/**
- * Created by Yustar Pramudana on 23/08/2022
- */
-
-open class ProfileRepositoryImpl(private val api: ProfileApi, private val responseHandler: ResponseHandler): ProfileRepository {
-    override suspend fun popularUserList(q: String, page: Int, perPage: Int, sort: String, order: String): Resource<List<User>> {
+class FakeProfileRepoImpl(private val fakeApi: FakeProfileApi, private val responseHandler: ResponseHandler): ProfileRepository {
+    override suspend fun popularUserList(
+        q: String,
+        page: Int,
+        perPage: Int,
+        sort: String,
+        order: String
+    ): Resource<List<User>> {
         return try {
-            val response = api.popularUserList(q, page, perPage, sort, order)
+            val response = fakeApi.popularUserList(q, page, perPage, sort, order)
             return responseHandler.handleSuccess(response)
 
         } catch (e: Exception) {
@@ -23,7 +25,7 @@ open class ProfileRepositoryImpl(private val api: ProfileApi, private val respon
 
     override suspend fun userDetail(username: String): Resource<Profile> {
         return try {
-            val response = api.userDetail(username)
+            val response = fakeApi.userDetail(username)
             return responseHandler.handleSuccess(response)
 
         } catch (e: Exception) {
