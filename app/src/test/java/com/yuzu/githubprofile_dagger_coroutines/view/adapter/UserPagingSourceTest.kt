@@ -34,13 +34,13 @@ class UserPagingSourceTest {
     fun setUp() {
 
         fakeRepo = FakeProfileRepoImpl(fakeApi, responseHandler)
-        pagingSource = UserPagingSource(fakeRepo)
+        pagingSource = UserPagingSource(fakeRepo, "")
     }
 
     @Test
     fun pageKeyedSubredditPagingSource() = runTest {
 
-        val pagingSource = UserPagingSource(fakeRepo)
+        val pagingSource = UserPagingSource(fakeRepo, "")
         assertEquals("test",
             expected = PagingSource.LoadResult.Page(
                 data = userList,

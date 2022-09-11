@@ -37,7 +37,7 @@ class PopularFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
-        viewModel.getUser()
+        viewModel.getUser("")
         viewModel.userLiveData.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
                 adapter.submitData(it)

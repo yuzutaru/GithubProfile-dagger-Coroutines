@@ -9,7 +9,9 @@ import java.io.IOException
 
 private const val USER_STARTING_PAGE_INDEX = 1
 
-class UserPagingSource(private val repository: ProfileRepository): PagingSource<Int, User>() {
+class UserPagingSource(private val repository: ProfileRepository, private val search: String): PagingSource<Int, User>() {
+    private var BASE_QUERY = "followers:>1000"
+
     override fun getRefreshKey(state: PagingState<Int, User>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
@@ -20,7 +22,7 @@ class UserPagingSource(private val repository: ProfileRepository): PagingSource<
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         val pageIndex = params.key ?: USER_STARTING_PAGE_INDEX
         return try {
-            val response = repository.popularUserList(q = "followers:>1000", type = "Users",
+            val response = repository.popularUserList(q = "$BASE_QUERY $search", type = "Users",
                 page = pageIndex, perPage = 10, sort = "followers", order = "desc")
 
             val users = response.data

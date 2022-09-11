@@ -17,14 +17,14 @@ class PopularViewModel: ViewModel() {
         profileRepository = appComponent.profileRepository()
     }
 
-    fun getUser() {
-        user.value = "start"
+    fun getUser(input: String) {
+        user.value = input
     }
 
     var userLiveData = user.switchMap {
         Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = 10),
-            pagingSourceFactory = { UserPagingSource(profileRepository) }
+            pagingSourceFactory = { UserPagingSource(profileRepository, it) }
         ).liveData
     }
 }
