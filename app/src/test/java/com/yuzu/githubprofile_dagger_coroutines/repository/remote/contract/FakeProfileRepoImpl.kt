@@ -9,13 +9,14 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.FakeProfil
 class FakeProfileRepoImpl(private val fakeApi: FakeProfileApi, private val responseHandler: ResponseHandler): ProfileRepository {
     override suspend fun popularUserList(
         q: String,
+        type: String,
         page: Int,
         perPage: Int,
         sort: String,
         order: String
     ): Resource<List<User>> {
         return try {
-            val response = fakeApi.popularUserList(q, page, perPage, sort, order)
+            val response = fakeApi.popularUserList(q, type, page, perPage, sort, order)
             return responseHandler.handleSuccess(response)
 
         } catch (e: Exception) {

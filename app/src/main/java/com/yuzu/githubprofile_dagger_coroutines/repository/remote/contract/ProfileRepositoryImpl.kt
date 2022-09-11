@@ -11,9 +11,9 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi
  */
 
 open class ProfileRepositoryImpl(private val api: ProfileApi, private val responseHandler: ResponseHandler): ProfileRepository {
-    override suspend fun popularUserList(q: String, page: Int, perPage: Int, sort: String, order: String): Resource<List<User>> {
+    override suspend fun popularUserList(q: String, type: String, page: Int, perPage: Int, sort: String, order: String): Resource<List<User>> {
         return try {
-            val response = api.popularUserList(q, page, perPage, sort, order)
+            val response = api.popularUserList(q, type, page, perPage, sort, order)
             return responseHandler.handleSuccess(response)
 
         } catch (e: Exception) {

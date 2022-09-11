@@ -9,6 +9,6 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.data.User
  */
 
 interface ProfileRepository {
-    suspend fun popularUserList(q: String, page: Int, perPage: Int, sort: String, order: String): Resource<List<User>>
+    suspend fun popularUserList(q: String, type: String, page: Int, perPage: Int, sort: String, order: String): Resource<List<User>>
     suspend fun userDetail(username: String): Resource<Profile>
 }

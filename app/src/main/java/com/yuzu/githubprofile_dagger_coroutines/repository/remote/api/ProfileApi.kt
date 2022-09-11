@@ -16,6 +16,7 @@ interface ProfileApi {
      * */
     @GET(value = "users")
     suspend fun popularUserList(@Query("q") q: String,
+                                @Query("type") type: String,
                                 @Query("page") page: Int,
                                 @Query("per_page") perPage: Int,
                                 @Query("sort") sort: String,

@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class UserFactory {
     private val counter = AtomicInteger(0)
+
     fun createUser(since: Int) : User {
         val id = counter.getAndIncrement()
         return User(id, since)

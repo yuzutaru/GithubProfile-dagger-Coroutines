@@ -20,8 +20,8 @@ class UserPagingSource(private val repository: ProfileRepository): PagingSource<
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         val pageIndex = params.key ?: USER_STARTING_PAGE_INDEX
         return try {
-            val response = repository.popularUserList(q = "followers:>1000", page = pageIndex,
-                perPage = 10, sort = "followers", order = "desc")
+            val response = repository.popularUserList(q = "followers:>1000", type = "Users",
+                page = pageIndex, perPage = 10, sort = "followers", order = "desc")
 
             val users = response.data
 

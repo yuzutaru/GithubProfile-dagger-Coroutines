@@ -12,6 +12,7 @@ class FakeProfileApi: ProfileApi {
 
     override suspend fun popularUserList(
         q: String,
+        type: String,
         page: Int,
         perPage: Int,
         sort: String,

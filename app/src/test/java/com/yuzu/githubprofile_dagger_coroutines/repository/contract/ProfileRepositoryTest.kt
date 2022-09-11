@@ -43,7 +43,7 @@ class ProfileRepositoryTest {
 
         runBlocking {
             coEvery { api.userDetail("yuzu") } returns profileData
-            coEvery { api.popularUserList("followers:>1000", 1,10, "followers", "desc") } returns userList
+            coEvery { api.popularUserList("followers:>1000", "Users",1,10, "followers", "desc") } returns userList
             coEvery { api.userDetail("Naruto") } throws mockException
         }
 
@@ -65,6 +65,6 @@ class ProfileRepositoryTest {
     @Test
     fun `test userList when valid since is requested, then userList is returned`() =
         runBlocking {
-            assertEquals(userListResponse, repository.popularUserList("followers:>1000", 1,10, "followers", "desc"))
+            assertEquals(userListResponse, repository.popularUserList("followers:>1000", "Users",1,10, "followers", "desc"))
         }
 }
