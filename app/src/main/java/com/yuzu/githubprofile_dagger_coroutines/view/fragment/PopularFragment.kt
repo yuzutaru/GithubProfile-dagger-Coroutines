@@ -1,14 +1,19 @@
 package com.yuzu.githubprofile_dagger_coroutines.view.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.yuzu.githubprofile_dagger_coroutines.R
 import com.yuzu.githubprofile_dagger_coroutines.databinding.FragmentPopularBinding
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.Status
 import com.yuzu.githubprofile_dagger_coroutines.view.adapter.LoadingStateAdapter
 import com.yuzu.githubprofile_dagger_coroutines.view.adapter.OnClickListener
 import com.yuzu.githubprofile_dagger_coroutines.view.adapter.UserListAdapter
@@ -35,11 +40,18 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
                 adapter.submitData(it)
             }
         }
+        viewModel.profileLiveData.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> findNavController().navigate(R.id.action_main_to_profile)
+                Status.ERROR -> showError(it.message!!)
+                Status.LOADING -> showLoading()
+            }
+        }
     }
 
     private fun initAdapter() {
         adapter = UserListAdapter(requireContext(), OnClickListener {
-
+            viewModel.profile.value = it.login
         })
         binding.recyclerView.adapter = adapter
         binding.recyclerView.adapter = adapter.withLoadStateFooter(
@@ -76,5 +88,16 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
 
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showLoading() {
+        binding.progress.visibility = View.VISIBLE
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showError(message: String) {
+        binding.progress.visibility = View.GONE
+        Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_SHORT).show()
     }
 }

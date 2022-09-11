@@ -7,11 +7,15 @@
         <entry key="app/src/main/res/drawable-v24/bg_white_1000.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable-v24/bg_white_border_primary.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable-v24/bg_white_borderless.xml" value="0.323" />
+        <entry key="app/src/main/res/drawable/bg_green_500_10.xml" value="0.31" />
+        <entry key="app/src/main/res/drawable/bg_white_500.xml" value="0.31" />
+        <entry key="app/src/main/res/drawable/btn_green_500_10.xml" value="0.31" />
         <entry key="app/src/main/res/drawable/ic_search_left.xml" value="0.1915" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_main_menu.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_popular.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_user_list.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/network_state_item.xml" value="0.35208333333333336" />
       </map>

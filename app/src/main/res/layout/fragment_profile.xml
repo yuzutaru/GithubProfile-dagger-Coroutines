@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewmodel"
+            type="com.yuzu.githubprofile_dagger_coroutines.viewmodel.ProfileViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/back"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_back"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        android:text="@{viewmodel.profileData.login}"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"/>
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="100dp"
+                app:cardBackgroundColor="@color/md_white_1000"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintBottom_toTopOf="@+id/name_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                android:visibility="@{safeUnbox(viewmodel.loading) ? View.GONE : View.VISIBLE}">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="100dp">
+
+                    <ImageView
+                        android:id="@+id/upload_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_logo_upload"/>
+
+                    <ImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"/>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/name"
+                android:textSize="14sp"
+                android:textColor="@color/md_grey_500"
+                app:layout_constraintTop_toBottomOf="@+id/cardView"
+                app:layout_constraintBottom_toTopOf="@+id/name"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:visibility="@{safeUnbox(viewmodel.loading) ? View.GONE : View.VISIBLE}"/>
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="text"
+                android:imeOptions="actionUnspecified"
+                style="@style/EditTextCustom"
+                android:text="@{viewmodel.profileData.name}"
+                android:clickable="false"
+                android:focusable="false"
+                app:layout_constraintTop_toBottomOf="@+id/name_label"
+                app:layout_constraintBottom_toTopOf="@+id/company_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:importantForAutofill="no"
+                android:visibility="@{safeUnbox(viewmodel.loading) ? View.GONE : View.VISIBLE}"/>
+
+            <TextView
+                android:id="@+id/company_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/company"
+                android:textSize="14sp"
+                android:textColor="@color/md_grey_500"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                app:layout_constraintBottom_toTopOf="@+id/company"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:visibility="@{safeUnbox(viewmodel.loading) ? View.GONE : View.VISIBLE}"/>
+
+            <EditText
+                android:id="@+id/company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="text"
+                android:imeOptions="actionUnspecified"
+                style="@style/EditTextCustom"
+                android:text="@{viewmodel.profileData.company}"
+                android:clickable="false"
+                android:focusable="false"
+                app:layout_constraintTop_toBottomOf="@+id/company_label"
+                app:layout_constraintBottom_toTopOf="@id/blog_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:importantForAutofill="no"
+                android:visibility="@{safeUnbox(viewmodel.loading) ? View.GONE : View.VISIBLE}"/>
+
+            <TextView
+                android:id="@+id/blog_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/blog"
+                android:textSize="14sp"
+                android:textColor="@color/md_grey_500"
+                app:layout_constraintTop_toBottomOf="@+id/company"
+                app:layout_constraintBottom_toTopOf="@+id/blog"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:visibility="@{safeUnbox(viewmodel.loading) ? View.GONE : View.VISIBLE}"/>
+
+            <EditText
+                android:id="@+id/blog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="text"
+                android:imeOptions="actionUnspecified"
+                style="@style/EditTextCustom"
+                android:text="@{viewmodel.profileData.blog}"
+                android:clickable="false"
+                android:focusable="false"
+                app:layout_constraintTop_toBottomOf="@+id/blog_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:importantForAutofill="no"
+                android:visibility="@{safeUnbox(viewmodel.loading) ? View.GONE : View.VISIBLE}"/>
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/md_white_1000"
+                android:textSize="12sp"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_green_500_10"
+                app:layout_constraintTop_toBottomOf="@id/blog"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginVertical="20dp"
+                android:visibility="@{safeUnbox(viewmodel.loading) ? View.GONE : View.VISIBLE}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

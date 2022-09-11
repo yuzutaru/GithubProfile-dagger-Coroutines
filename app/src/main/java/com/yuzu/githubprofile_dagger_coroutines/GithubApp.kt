@@ -2,6 +2,7 @@ package com.yuzu.githubprofile_dagger_coroutines
 
 import android.app.Application
 import android.content.Context
+import androidx.multidex.MultiDex
 import com.yuzu.githubprofile_dagger_coroutines.injection.AppComponent
 import com.yuzu.githubprofile_dagger_coroutines.injection.AppModule
 import com.yuzu.githubprofile_dagger_coroutines.injection.DaggerAppComponent
@@ -23,7 +24,7 @@ class GithubApp: Application() {
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(newBase)
-        //MultiDex.install(this)
+        MultiDex.install(this)
     }
 
     @Suppress("DEPRECATION")
