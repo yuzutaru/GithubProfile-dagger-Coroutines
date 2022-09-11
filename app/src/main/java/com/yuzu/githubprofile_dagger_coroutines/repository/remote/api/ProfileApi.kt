@@ -1,6 +1,7 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.remote.api
 
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.SearchUser
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.User
 import retrofit2.http.*
 
@@ -14,13 +15,13 @@ interface ProfileApi {
      * Popular User List
      * curl https://api.github.com/search/users\?q\=followers:\>1000\&page\=1\&per_page\=10\&sort\=followers\&order\=desc
      * */
-    @GET(value = "users")
+    @GET(value = "search/users")
     suspend fun popularUserList(@Query("q") q: String,
                                 @Query("type") type: String,
                                 @Query("page") page: Int,
                                 @Query("per_page") perPage: Int,
                                 @Query("sort") sort: String,
-                                @Query("order") order: String): List<User>
+                                @Query("order") order: String): SearchUser
 
     /**
      * User Detail

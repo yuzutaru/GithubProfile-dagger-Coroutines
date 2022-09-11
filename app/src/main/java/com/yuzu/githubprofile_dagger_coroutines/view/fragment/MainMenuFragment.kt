@@ -22,10 +22,25 @@ class MainMenuFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+        initAdapter()
+        initViewPager()
+    }
 
+    private fun initAdapter() {
+        binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+    }
+
+    private fun initViewPager() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = title[position]
         }.attach()
+    }
+
+    private fun initQuery() {
+        binding.search.setOnQueryTextFocusChangeListener(object : View.OnFocusChangeListener {
+            override fun onFocusChange(p0: View?, p1: Boolean) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }

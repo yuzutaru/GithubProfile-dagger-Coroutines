@@ -1,6 +1,7 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.remote.api
 
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.SearchUser
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.User
 
 class FakeProfileApi: ProfileApi {
@@ -17,8 +18,8 @@ class FakeProfileApi: ProfileApi {
         perPage: Int,
         sort: String,
         order: String
-    ): List<User> {
-        return userList
+    ): SearchUser {
+        return SearchUser(items = userList)
     }
 
     override suspend fun userDetail(username: String): Profile {

@@ -25,7 +25,7 @@ class UserPagingSource(private val repository: ProfileRepository, private val se
             val response = repository.popularUserList(q = "$BASE_QUERY $search", type = "Users",
                 page = pageIndex, perPage = 10, sort = "followers", order = "desc")
 
-            val users = response.data
+            val users = response.data?.items
 
             val nextKey =
                 if (users!!.isEmpty()) {

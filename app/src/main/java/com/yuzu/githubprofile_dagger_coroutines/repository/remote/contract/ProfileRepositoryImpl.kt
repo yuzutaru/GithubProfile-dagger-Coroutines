@@ -1,9 +1,6 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.remote.contract
 
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.Resource
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.ResponseHandler
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.User
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.*
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi
 
 /**
@@ -11,7 +8,8 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi
  */
 
 open class ProfileRepositoryImpl(private val api: ProfileApi, private val responseHandler: ResponseHandler): ProfileRepository {
-    override suspend fun popularUserList(q: String, type: String, page: Int, perPage: Int, sort: String, order: String): Resource<List<User>> {
+    override suspend fun popularUserList(q: String, type: String, page: Int, perPage: Int,
+                                         sort: String, order: String): Resource<SearchUser> {
         return try {
             val response = api.popularUserList(q, type, page, perPage, sort, order)
             return responseHandler.handleSuccess(response)

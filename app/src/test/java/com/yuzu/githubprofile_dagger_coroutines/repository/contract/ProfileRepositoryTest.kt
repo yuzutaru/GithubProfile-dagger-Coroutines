@@ -28,9 +28,10 @@ class ProfileRepositoryTest {
 
     private val profileData = Profile(0, "yuzu")
     private val userList = listOf(User(0,0))
+    private val searchUser = SearchUser(items = userList)
 
     private val profileDataResponse = Resource.success(profileData)
-    private val userListResponse = Resource.success(userList)
+    private val userListResponse = Resource.success(searchUser)
 
     private val error = Resource.error("Unauthorised", null)
 
@@ -43,7 +44,8 @@ class ProfileRepositoryTest {
 
         runBlocking {
             coEvery { api.userDetail("yuzu") } returns profileData
-            coEvery { api.popularUserList("followers:>1000", "Users",1,10, "followers", "desc") } returns userList
+            coEvery { api.popularUserList("followers:>1000", "Users",1,10,
+                "followers", "desc") } returns searchUser
             coEvery { api.userDetail("Naruto") } throws mockException
         }
 
@@ -65,6 +67,7 @@ class ProfileRepositoryTest {
     @Test
     fun `test userList when valid since is requested, then userList is returned`() =
         runBlocking {
-            assertEquals(userListResponse, repository.popularUserList("followers:>1000", "Users",1,10, "followers", "desc"))
+            assertEquals(userListResponse, repository.popularUserList("followers:>1000",
+                "Users",1,10, "followers", "desc"))
         }
 }
