@@ -9,12 +9,14 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.remote.contract.Profi
 import com.yuzu.githubprofile_dagger_coroutines.view.adapter.UserPagingSource
 
 class PopularViewModel: ViewModel() {
-    private val profileRepository: ProfileRepository
-    private val user = MutableLiveData<String>()
+    lateinit var profileRepository: ProfileRepository
+    val user = MutableLiveData<String>()
 
     init {
-        val appComponent = GithubApp.instance.getAppComponent()
-        profileRepository = appComponent.profileRepository()
+        val appComponent = GithubApp.instance?.getAppComponent()
+        if (appComponent != null) {
+            profileRepository = appComponent.profileRepository()
+        }
     }
 
     fun getUser(input: String) {

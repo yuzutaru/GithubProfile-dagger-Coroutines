@@ -14,7 +14,7 @@ class GithubApp: Application() {
     }
 
     companion object {
-        lateinit var instance: GithubApp private set
+        var instance: GithubApp? = null
     }
 
     operator fun get(context: Context): GithubApp {
