@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -42,7 +43,10 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
         }
         viewModel.profileLiveData.observe(viewLifecycleOwner) {
             when (it.status) {
-                Status.SUCCESS -> findNavController().navigate(R.id.action_main_to_profile)
+                Status.SUCCESS -> {
+                    val args = bundleOf("ARGUMENT_PROFILE" to it.data)
+                    findNavController().navigate(R.id.action_main_to_profile, args)
+                }
                 Status.ERROR -> showError(it.message!!)
                 Status.LOADING -> showLoading()
             }

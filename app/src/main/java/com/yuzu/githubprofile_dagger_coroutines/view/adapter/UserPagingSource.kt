@@ -27,21 +27,21 @@ class UserPagingSource(private val repository: ProfileRepository, private val se
 
             val users = response.data?.items
 
-            val nextKey =
-                if (users!!.isEmpty()) {
-                    null
-                } else {
-                    pageIndex + 1
-                }
+            var nextKey: Int? = null
+            if (users != null && users.isNotEmpty()) {
+                nextKey = pageIndex + 1
+            }
 
             LoadResult.Page(
-                data = users,
+                data = users!!,
                 prevKey = if (pageIndex == USER_STARTING_PAGE_INDEX) null else pageIndex,
                 nextKey = nextKey
             )
         } catch (exception: IOException) {
             return LoadResult.Error(exception)
         } catch (exception: HttpException) {
+            return LoadResult.Error(exception)
+        } catch (exception: NullPointerException) {
             return LoadResult.Error(exception)
         }
     }
