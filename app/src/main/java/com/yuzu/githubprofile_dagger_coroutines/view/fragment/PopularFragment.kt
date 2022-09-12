@@ -24,7 +24,7 @@ import com.yuzu.githubprofile_dagger_coroutines.viewmodel.PopularViewModel
 import kotlinx.coroutines.launch
 
 
-class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
+class PopularFragment(private val viewModel: PopularViewModel): BaseFragment() {
     private lateinit var binding: FragmentPopularBinding
     private lateinit var adapter: UserListAdapter
 
@@ -54,7 +54,7 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
                     findNavController().navigate(R.id.action_main_to_profile, args)
                 }
                 Status.ERROR -> showError(it.message!!)
-                Status.LOADING -> showLoading()
+                Status.LOADING -> showLoading(binding.progress)
             }
         }
     }
@@ -109,17 +109,6 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
     private fun initSwipeToRefresh() {
 
         binding.swipeRefresh.setOnRefreshListener { viewModel.getUser("")}
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun showLoading() {
-        binding.progress.visibility = View.VISIBLE
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun showError(message: String) {
-        binding.progress.visibility = View.GONE
-        Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_SHORT).show()
     }
 
     private fun onBackPressed() {

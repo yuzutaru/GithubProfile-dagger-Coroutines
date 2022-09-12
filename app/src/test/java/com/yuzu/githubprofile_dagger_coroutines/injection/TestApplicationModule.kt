@@ -20,5 +20,5 @@ class TestApplicationModule(application: GithubApp): AppModule(application) {
 
     override fun profileDB(): ProfileDB = mockk()
     override fun profileDAO(db: ProfileDB): ProfileDAO = mockk()
-    override fun profileDBRepository(dao: ProfileDAO): ProfileDBRepository = mockk()
+    override fun profileDBRepository(dao: ProfileDAO, responseHandler: ResponseHandler): ProfileDBRepository = mockk()
 }

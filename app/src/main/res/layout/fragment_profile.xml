@@ -204,7 +204,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginVertical="20dp"
-                android:visibility="@{safeUnbox(viewmodel.loading) ? View.GONE : View.VISIBLE}"/>
+                android:visibility="@{safeUnbox(viewmodel.isFavorite()) ? View.GONE : View.VISIBLE}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

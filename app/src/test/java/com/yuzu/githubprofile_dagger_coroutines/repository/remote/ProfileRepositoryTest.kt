@@ -1,4 +1,4 @@
-package com.yuzu.githubprofile_dagger_coroutines.repository.contract
+package com.yuzu.githubprofile_dagger_coroutines.repository.remote
 
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.*
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi

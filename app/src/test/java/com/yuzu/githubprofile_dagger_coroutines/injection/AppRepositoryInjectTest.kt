@@ -1,16 +1,11 @@
 package com.yuzu.githubprofile_dagger_coroutines.injection
 
-import androidx.lifecycle.LiveData
 import com.yuzu.githubprofile_dagger_coroutines.GithubApp
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.SearchUser
-import com.yuzu.githubprofile_dagger_coroutines.repository.data.User
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.*
 import com.yuzu.githubprofile_dagger_coroutines.repository.local.contact.ProfileDBRepository
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.contract.ProfileRepository
-import com.yuzu.githubprofile_dagger_coroutines.utils.getOrAwaitValue
 import io.mockk.coEvery
-import io.mockk.every
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Assert.assertEquals
@@ -68,10 +63,11 @@ class AppRepositoryInjectTest {
     fun profileDBRepoGetAllProfilesTest() {
         runBlocking {
             Assert.assertNotNull(profileDBRepo)
-            coEvery { profileDBRepo.getAllProfiles() } returns listOf(Profile(0))
+            coEvery { profileDBRepo.getAllProfiles() } returns Resource(Status.SUCCESS,
+                listOf(Profile(0)), "")
             val result = profileDBRepo.getAllProfiles()
 
-            assertEquals(listOf(Profile(0)), result)
+            assertEquals(listOf(Profile(0)), result.data)
         }
     }
 
@@ -79,10 +75,11 @@ class AppRepositoryInjectTest {
     fun profileDBRepoGetProfileTest() {
         runBlocking {
             Assert.assertNotNull(profileDBRepo)
-            coEvery { profileDBRepo.getProfile("yuzutaru") } returns Profile(0, "yuzutaru")
+            coEvery { profileDBRepo.getProfile("yuzutaru") } returns Resource(Status.SUCCESS,
+                Profile(0, "yuzutaru"), "")
             val result = profileDBRepo.getProfile("yuzutaru")
 
-            assertEquals(Profile(0, "yuzutaru"), result)
+            assertEquals(Profile(0, "yuzutaru"), result.data)
         }
     }
 }

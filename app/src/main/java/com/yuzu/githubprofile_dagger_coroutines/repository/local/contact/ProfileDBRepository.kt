@@ -1,6 +1,7 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.local.contact
 
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.Resource
 
 
 /**
@@ -8,8 +9,8 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
  */
 
 interface ProfileDBRepository {
-    suspend fun getAllProfiles(): List<Profile>
-    suspend fun getProfile(login: String): Profile
+    suspend fun getAllProfiles(): Resource<List<Profile>>
+    suspend fun getProfile(login: String): Resource<Profile>
     suspend fun insert(profileData: Profile)
     suspend fun insert(profileDataList: List<Profile>)
 }

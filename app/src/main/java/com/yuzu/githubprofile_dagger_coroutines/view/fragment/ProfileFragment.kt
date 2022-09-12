@@ -6,12 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yuzu.githubprofile_dagger_coroutines.R
 import com.yuzu.githubprofile_dagger_coroutines.databinding.FragmentProfileBinding
+import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
 import com.yuzu.githubprofile_dagger_coroutines.viewmodel.ProfileViewModel
 
 
@@ -35,8 +37,23 @@ class ProfileFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getArgs(arguments)
         onBackPressed()
+        viewModel.getArgs(arguments)
+
+        viewModel.profileLiveData().observe(viewLifecycleOwner) {
+            it.login?.let { it1 -> viewModel.isFavorited.value = it1 }
+        }
+
+        viewModel.isFavoritedLiveData().observe(viewLifecycleOwner) {
+            viewModel.isFavorite.value = it.data != null
+        }
+
+        binding.favorite.setOnClickListener {
+            viewModel.favoriteProfile()
+            Toast.makeText(requireContext(), "Added profile to Favorite", Toast.LENGTH_SHORT).show()
+            viewModel.isFavorite.value = true
+        }
+
         binding.back.setOnClickListener {
             Log.e("devLog", "on icon back")
             this@ProfileFragment.findNavController().navigate(R.id.action_profile_screen_to_main_screen)

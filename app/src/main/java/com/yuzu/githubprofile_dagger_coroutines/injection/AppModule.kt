@@ -128,7 +128,7 @@ open class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    open fun profileDBRepository(dao: ProfileDAO): ProfileDBRepository {
-        return ProfileDBRepositoryImpl(dao)
+    open fun profileDBRepository(dao: ProfileDAO, responseHandler: ResponseHandler): ProfileDBRepository {
+        return ProfileDBRepositoryImpl(dao, responseHandler)
     }
 }
