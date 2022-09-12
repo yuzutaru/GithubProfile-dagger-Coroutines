@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yuzu.githubprofile_dagger_coroutines.R
 import com.yuzu.githubprofile_dagger_coroutines.databinding.FragmentMainMenuBinding
@@ -46,6 +47,7 @@ class MainMenuFragment: Fragment() {
 
     private fun initAdapter() {
         binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle, viewModel)
+        binding.viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
     }
 
     private fun initViewPager() {

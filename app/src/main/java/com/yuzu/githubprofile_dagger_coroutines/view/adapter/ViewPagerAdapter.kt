@@ -8,6 +8,7 @@ import com.yuzu.githubprofile_dagger_coroutines.view.fragment.FavoriteFragment
 import com.yuzu.githubprofile_dagger_coroutines.view.fragment.PopularFragment
 import com.yuzu.githubprofile_dagger_coroutines.viewmodel.PopularViewModel
 
+
 class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, private val popularViewModel: PopularViewModel):
     FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {

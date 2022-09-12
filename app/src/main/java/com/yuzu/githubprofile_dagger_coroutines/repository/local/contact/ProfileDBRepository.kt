@@ -11,6 +11,6 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.data.Resource
 interface ProfileDBRepository {
     suspend fun getAllProfiles(): Resource<List<Profile>>
     suspend fun getProfile(login: String): Resource<Profile>
-    suspend fun insert(profileData: Profile)
-    suspend fun insert(profileDataList: List<Profile>)
+    suspend fun insert(profileData: Profile): Resource<Long>
+    suspend fun insert(profileDataList: List<Profile>): Resource<List<Long>>
 }

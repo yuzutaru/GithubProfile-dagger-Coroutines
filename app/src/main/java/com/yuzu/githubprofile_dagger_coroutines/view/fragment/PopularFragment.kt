@@ -52,8 +52,12 @@ class PopularFragment(private val viewModel: PopularViewModel): BaseFragment() {
                 Status.SUCCESS -> {
                     val args = bundleOf("ARGUMENT_PROFILE" to it.data)
                     findNavController().navigate(R.id.action_main_to_profile, args)
+                    binding.progress.visibility = View.GONE
                 }
-                Status.ERROR -> showError(it.message!!)
+                Status.ERROR -> {
+                    showError(it.message!!)
+                    binding.progress.visibility = View.GONE
+                }
                 Status.LOADING -> showLoading(binding.progress)
             }
         }

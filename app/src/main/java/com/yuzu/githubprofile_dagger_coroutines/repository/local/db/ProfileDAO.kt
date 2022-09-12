@@ -20,8 +20,8 @@ interface ProfileDAO {
     suspend fun getProfile(login: String): Profile
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(profileData: Profile)
+    suspend fun insert(profileData: Profile): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(profileDataList: List<Profile>)
+    suspend fun insert(profileDataList: List<Profile>): List<Long>
 }

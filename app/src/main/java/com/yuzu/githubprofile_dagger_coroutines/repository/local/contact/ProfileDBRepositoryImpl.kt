@@ -1,6 +1,5 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.local.contact
 
-import androidx.lifecycle.LiveData
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.Resource
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.ResponseHandler
@@ -31,11 +30,23 @@ class ProfileDBRepositoryImpl(private val dao: ProfileDAO, private val responseH
         }
     }
 
-    override suspend fun insert(profileData: Profile) {
-        dao.insert(profileData)
+    override suspend fun insert(profileData: Profile): Resource<Long> {
+        return try {
+            val response = dao.insert(profileData)
+            return responseHandler.handleSuccess(response)
+
+        } catch (e: Exception) {
+            responseHandler.handleException(e)
+        }
     }
 
-    override suspend fun insert(profileDataList: List<Profile>) {
-        dao.insert(profileDataList)
+    override suspend fun insert(profileDataList: List<Profile>): Resource<List<Long>> {
+        return try {
+            val response = dao.insert(profileDataList)
+            return responseHandler.handleSuccess(response)
+
+        } catch (e: Exception) {
+            responseHandler.handleException(e)
+        }
     }
 }

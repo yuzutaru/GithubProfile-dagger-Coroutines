@@ -45,6 +45,7 @@ class FavoriteFragment: BaseFragment() {
 
                         })
                         binding.recyclerView.adapter = adapter
+                        binding.progress.visibility = View.GONE
 
                     } else {
                         showError("no favorite data")

@@ -16,7 +16,8 @@ class ProfileViewModel: ViewModel() {
     fun profileLiveData(): LiveData<Profile> = profileData
 
     var isFavorited = MutableLiveData<String>()
-    var isFavorite = MutableLiveData(false)
+
+    var saveFavorite = MutableLiveData<String>()
 
     init {
         val appComponent = GithubApp.instance?.getAppComponent()
@@ -36,10 +37,12 @@ class ProfileViewModel: ViewModel() {
         }
     }
 
-    fun favoriteProfile() {
+    var favoriteProfile = saveFavorite.switchMap {
         liveData(Dispatchers.IO) {
             emit(Resource.loading(null))
-            emit(profileData.value?.let { profileDBRepository.insert(it) })
+            emit(profileData.value?.let {
+                profileDBRepository.insert(it)
+            })
         }
     }
 }
