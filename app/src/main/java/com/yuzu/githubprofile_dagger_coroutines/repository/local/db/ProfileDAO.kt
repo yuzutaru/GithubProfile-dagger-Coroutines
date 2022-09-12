@@ -1,6 +1,5 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.local.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy

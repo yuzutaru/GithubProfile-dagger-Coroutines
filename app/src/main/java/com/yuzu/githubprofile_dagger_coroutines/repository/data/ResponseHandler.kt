@@ -1,10 +1,8 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.data
 
-import dagger.Provides
 import retrofit2.HttpException
 import java.lang.Exception
 import java.net.SocketTimeoutException
-import javax.inject.Singleton
 
 enum class ErrorCodes(val code: Int) {
     SocketTimeOut(-1)
