@@ -2,11 +2,11 @@ package com.yuzu.githubprofile_dagger_coroutines.view.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -22,6 +22,7 @@ import com.yuzu.githubprofile_dagger_coroutines.view.adapter.OnClickListener
 import com.yuzu.githubprofile_dagger_coroutines.view.adapter.UserListAdapter
 import com.yuzu.githubprofile_dagger_coroutines.viewmodel.PopularViewModel
 import kotlinx.coroutines.launch
+
 
 class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
     private lateinit var binding: FragmentPopularBinding
@@ -122,13 +123,13 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
     }
 
     private fun onBackPressed() {
-        requireView().isFocusableInTouchMode = true;
-        requireView().requestFocus();
-        requireView().setOnKeyListener { _, p1, _ ->
-            if (p1 == KeyEvent.KEYCODE_BACK)
-                (activity as MainActivity).finish()
-
-            true
-        }
+        // This callback will only be called when MyFragment is at least Started.
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    (activity as MainActivity).finish()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback)
     }
 }

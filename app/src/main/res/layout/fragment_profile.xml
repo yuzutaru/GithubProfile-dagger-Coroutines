@@ -36,8 +36,6 @@
                         android:layout_height="28dp"
                         android:layout_centerVertical="true"
                         android:adjustViewBounds="true"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:src="@drawable/ic_back" />
 
                     <TextView
@@ -200,7 +198,7 @@
                 android:textSize="12sp"
                 android:text="@string/favorite"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_green_500_10"
+                android:backgroundTint="@color/md_green_300"
                 app:layout_constraintTop_toBottomOf="@id/blog"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

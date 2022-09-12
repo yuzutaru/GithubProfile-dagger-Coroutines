@@ -7,8 +7,10 @@
         <entry key="app/src/main/res/drawable-v24/bg_white_1000.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable-v24/bg_white_border_primary.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable-v24/bg_white_borderless.xml" value="0.323" />
+        <entry key="app/src/main/res/drawable/bg_green_300_10.xml" value="0.1315" />
         <entry key="app/src/main/res/drawable/bg_green_500_10.xml" value="0.31" />
         <entry key="app/src/main/res/drawable/bg_white_500.xml" value="0.31" />
+        <entry key="app/src/main/res/drawable/btn_green_300_10.xml" value="0.1315" />
         <entry key="app/src/main/res/drawable/btn_green_500_10.xml" value="0.31" />
         <entry key="app/src/main/res/drawable/ic_search_left.xml" value="0.1915" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35208333333333336" />
