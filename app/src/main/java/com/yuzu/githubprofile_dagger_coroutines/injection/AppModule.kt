@@ -2,7 +2,12 @@ package com.yuzu.githubprofile_dagger_coroutines.injection
 
 import android.annotation.SuppressLint
 import android.app.Application
+import androidx.room.Room
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.ResponseHandler
+import com.yuzu.githubprofile_dagger_coroutines.repository.local.contact.ProfileDBRepository
+import com.yuzu.githubprofile_dagger_coroutines.repository.local.contact.ProfileDBRepositoryImpl
+import com.yuzu.githubprofile_dagger_coroutines.repository.local.db.ProfileDAO
+import com.yuzu.githubprofile_dagger_coroutines.repository.local.db.ProfileDB
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.contract.ProfileRepositoryImpl
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.api.ProfileApi
 import com.yuzu.githubprofile_dagger_coroutines.repository.remote.contract.ProfileRepository
@@ -16,6 +21,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
+import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import javax.net.ssl.HostnameVerifier
@@ -105,5 +111,24 @@ open class AppModule(private val app: Application) {
     @Singleton
     open fun responseHandler(): ResponseHandler {
         return ResponseHandler()
+    }
+
+    //Profile DB
+    @Provides
+    @Singleton
+    open fun profileDB(): ProfileDB {
+        return Room.databaseBuilder(app, ProfileDB::class.java, "profile.db").build()
+    }
+
+    @Provides
+    @Singleton
+    fun profileDAO(db: ProfileDB): ProfileDAO {
+        return db.profileDAO()
+    }
+
+    @Provides
+    @Singleton
+    open fun profileDBRepository(dao: ProfileDAO): ProfileDBRepository {
+        return ProfileDBRepositoryImpl(dao)
     }
 }

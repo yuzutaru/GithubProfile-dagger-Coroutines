@@ -14,6 +14,8 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class])
 interface TestApplicationComponent {
     fun into(test: PopularViewModelTest)
+    fun into(test: AppRepositoryInjectTest)
+
     //Profile API
     fun profileApi(): ProfileApi
     fun profileRepository(): ProfileRepository
