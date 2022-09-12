@@ -48,4 +48,25 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/main_screen" />
     </fragment>
+
+    <fragment
+        android:id="@+id/popular_screen"
+        android:name="com.yuzu.githubprofile_dagger_coroutines.view.fragment.PopularFragment"
+        android:label="fragment_popular"
+        tools:layout="@layout/fragment_popular"/>
+
+    <fragment
+        android:id="@+id/favorite_screen"
+        android:name="com.yuzu.githubprofile_dagger_coroutines.view.fragment.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite">
+
+        <action
+            android:id="@+id/action_favorite_screen_to_profile_screen"
+            app:destination="@id/profile_screen"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 </navigation>

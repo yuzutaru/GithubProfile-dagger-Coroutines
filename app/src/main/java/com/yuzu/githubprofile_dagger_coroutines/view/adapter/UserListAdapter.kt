@@ -9,7 +9,7 @@ import com.yuzu.githubprofile_dagger_coroutines.R
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.User
 import com.yuzu.githubprofile_dagger_coroutines.view.viewholder.UserListViewHolder
 
-class UserListAdapter(context: Context, private val clickListener: OnClickListener): PagingDataAdapter<User, UserListViewHolder>(diffCallback) {
+class UserListAdapter(context: Context, private val clickListener: OnClickListener<User>): PagingDataAdapter<User, UserListViewHolder>(diffCallback) {
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<User>() {
             override fun areItemsTheSame(oldItem: User, newItem: User): Boolean = oldItem.login == newItem.login
@@ -29,6 +29,6 @@ class UserListAdapter(context: Context, private val clickListener: OnClickListen
     }
 }
 
-class OnClickListener(val clickListener: (user: User) -> Unit) {
-    fun onClick(user: User) = clickListener(user)
+class OnClickListener<T>(val clickListener: (T: T) -> Unit) {
+    fun onClick(T: T) = clickListener(T)
 }
