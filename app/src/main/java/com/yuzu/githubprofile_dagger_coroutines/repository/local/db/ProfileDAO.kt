@@ -14,10 +14,10 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
 @Dao
 interface ProfileDAO {
     @Query("SELECT * from Profile")
-    fun getAllProfiles(): LiveData<List<Profile>>
+    fun getAllProfiles(): List<Profile>
 
     @Query("SELECT * FROM Profile WHERE login = :login")
-    fun getProfile(login: String): LiveData<Profile>
+    fun getProfile(login: String): Profile
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(profileData: Profile)

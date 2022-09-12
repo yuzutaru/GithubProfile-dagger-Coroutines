@@ -1,6 +1,5 @@
 package com.yuzu.githubprofile_dagger_coroutines.repository.local.contact
 
-import androidx.lifecycle.LiveData
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
 
 
@@ -9,8 +8,8 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.data.Profile
  */
 
 interface ProfileDBRepository {
-    fun getAllProfiles(): LiveData<List<Profile>>
-    fun getProfile(login: String): LiveData<Profile>
+    suspend fun getAllProfiles(): List<Profile>
+    suspend fun getProfile(login: String): Profile
     suspend fun insert(profileData: Profile)
     suspend fun insert(profileDataList: List<Profile>)
 }

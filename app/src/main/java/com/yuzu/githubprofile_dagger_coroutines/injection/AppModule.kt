@@ -122,7 +122,7 @@ open class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun profileDAO(db: ProfileDB): ProfileDAO {
+    open fun profileDAO(db: ProfileDB): ProfileDAO {
         return db.profileDAO()
     }
 

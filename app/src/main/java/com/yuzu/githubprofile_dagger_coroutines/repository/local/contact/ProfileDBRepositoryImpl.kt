@@ -8,13 +8,12 @@ import com.yuzu.githubprofile_dagger_coroutines.repository.local.db.ProfileDAO
  * Created by Yustar Pramudana on 12/09/2022
  */
 
-class ProfileDBRepositoryImpl(private val dao: ProfileDAO):
-    ProfileDBRepository {
-    override fun getAllProfiles(): LiveData<List<Profile>> {
+class ProfileDBRepositoryImpl(private val dao: ProfileDAO): ProfileDBRepository {
+    override suspend fun getAllProfiles(): List<Profile> {
         return dao.getAllProfiles()
     }
 
-    override fun getProfile(login: String): LiveData<Profile> {
+    override suspend fun getProfile(login: String): Profile {
         return dao.getProfile(login)
     }
 

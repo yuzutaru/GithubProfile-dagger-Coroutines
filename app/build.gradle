@@ -59,6 +59,7 @@ dependencies {
     // Optional -- Mockk framework
     testImplementation "io.mockk:mockk:1.12.7"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
     //Multidex
     implementation "androidx.multidex:multidex:2.0.1"
@@ -72,6 +73,7 @@ dependencies {
     //Kotlin Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
 
     //OkHttp
     implementation "com.squareup.okhttp3:okhttp:4.10.0"
