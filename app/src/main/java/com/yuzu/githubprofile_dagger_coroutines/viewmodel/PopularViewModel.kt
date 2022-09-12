@@ -34,7 +34,7 @@ class PopularViewModel: ViewModel() {
         ).liveData
     }
 
-    var profileLiveData = profile.switchMap { it ->
+    var profileLiveData = profile.switchMap {
         liveData(Dispatchers.IO) {
             emit(Resource.loading(null))
             emit(profileRepository.userDetail(it))

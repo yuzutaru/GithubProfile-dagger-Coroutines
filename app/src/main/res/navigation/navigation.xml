@@ -38,5 +38,11 @@
         android:id="@+id/profile_screen"
         android:name="com.yuzu.githubprofile_dagger_coroutines.view.fragment.ProfileFragment"
         android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_profile_screen_to_main_screen"
+            app:destination="@id/main_screen"
+            app:popUpTo="@id/main_screen" />
+    </fragment>
 </navigation>

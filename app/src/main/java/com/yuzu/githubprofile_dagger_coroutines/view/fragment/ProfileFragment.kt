@@ -2,15 +2,20 @@ package com.yuzu.githubprofile_dagger_coroutines.view.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.yuzu.githubprofile_dagger_coroutines.R
 import com.yuzu.githubprofile_dagger_coroutines.databinding.FragmentProfileBinding
 import com.yuzu.githubprofile_dagger_coroutines.view.activity.MainActivity
 import com.yuzu.githubprofile_dagger_coroutines.viewmodel.ProfileViewModel
+
 
 class ProfileFragment: Fragment() {
     private lateinit var binding: FragmentProfileBinding
@@ -31,9 +36,13 @@ class ProfileFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.getArgs(arguments)
         onBackPressed()
-
+        binding.back.setOnClickListener {
+            Log.e("devLog", "on icon back")
+            findNavController().navigate(R.id.action_profile_screen_to_main_screen)
+        }
     }
 
     private fun onBackPressed() {
@@ -41,7 +50,7 @@ class ProfileFragment: Fragment() {
         requireView().requestFocus();
         requireView().setOnKeyListener { _, p1, _ ->
             if (p1 == KeyEvent.KEYCODE_BACK)
-                (activity as MainActivity).onBackPressed()
+                findNavController().navigate(R.id.action_profile_screen_to_main_screen)
 
             true
         }

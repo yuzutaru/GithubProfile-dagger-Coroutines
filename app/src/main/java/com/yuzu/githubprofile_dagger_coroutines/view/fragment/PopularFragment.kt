@@ -28,6 +28,8 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentPopularBinding.inflate(inflater, container, false)
+        viewModel.getUser("")
+
         return binding.root
     }
 
@@ -35,7 +37,6 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
-        viewModel.getUser("")
         viewModel.userLiveData.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
                 adapter.submitData(it)
