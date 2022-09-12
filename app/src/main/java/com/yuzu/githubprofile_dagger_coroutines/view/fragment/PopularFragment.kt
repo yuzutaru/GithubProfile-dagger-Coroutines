@@ -2,6 +2,7 @@ package com.yuzu.githubprofile_dagger_coroutines.view.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import androidx.paging.LoadState
 import com.yuzu.githubprofile_dagger_coroutines.R
 import com.yuzu.githubprofile_dagger_coroutines.databinding.FragmentPopularBinding
 import com.yuzu.githubprofile_dagger_coroutines.repository.data.Status
+import com.yuzu.githubprofile_dagger_coroutines.view.activity.MainActivity
 import com.yuzu.githubprofile_dagger_coroutines.view.adapter.LoadingStateAdapter
 import com.yuzu.githubprofile_dagger_coroutines.view.adapter.OnClickListener
 import com.yuzu.githubprofile_dagger_coroutines.view.adapter.UserListAdapter
@@ -37,6 +39,8 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
+        initSwipeToRefresh()
+        onBackPressed()
         viewModel.userLiveData.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
                 adapter.submitData(it)
@@ -62,6 +66,12 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
         binding.recyclerView.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter { adapter.retry() }
         )
+
+        lifecycleScope.launchWhenCreated {
+            adapter.loadStateFlow.collect { loadStates ->
+                binding.swipeRefresh.isRefreshing = loadStates.mediator?.refresh is LoadState.Loading
+            }
+        }
 
         adapter.addLoadStateListener { loadState ->
 
@@ -95,6 +105,11 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
         }
     }
 
+    private fun initSwipeToRefresh() {
+
+        binding.swipeRefresh.setOnRefreshListener { viewModel.getUser("")}
+    }
+
     @SuppressLint("SetTextI18n")
     private fun showLoading() {
         binding.progress.visibility = View.VISIBLE
@@ -104,5 +119,16 @@ class PopularFragment(private val viewModel: PopularViewModel): Fragment() {
     private fun showError(message: String) {
         binding.progress.visibility = View.GONE
         Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onBackPressed() {
+        requireView().isFocusableInTouchMode = true;
+        requireView().requestFocus();
+        requireView().setOnKeyListener { _, p1, _ ->
+            if (p1 == KeyEvent.KEYCODE_BACK)
+                (activity as MainActivity).finish()
+
+            true
+        }
     }
 }

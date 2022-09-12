@@ -28,6 +28,7 @@ class UserPagingSource(private val repository: ProfileRepository, private val se
             val users = response.data?.items
 
             var nextKey: Int? = null
+
             if (users != null && users.isNotEmpty()) {
                 nextKey = pageIndex + 1
             }
